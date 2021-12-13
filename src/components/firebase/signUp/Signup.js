@@ -1,14 +1,18 @@
 import { useContext, useRef } from 'react'
 import  {Form,Button ,Card} from 'react-bootstrap'
 import AuthContext from './../context/AuthContext';
+import { Link } from 'react-router-dom';
 const Signup = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const {login } = useContext(AuthContext)
+    const {signUp } = useContext(AuthContext)
     const submitHandler= (e)=>{
         e.preventDefault()
-          login(emailRef.current.value,passwordRef.current.value)
+        signUp(emailRef.current.value,passwordRef.current.value)
+          emailRef.current.value=""
+          passwordRef.current.value=""
+          passwordConfirmRef.current.value=""
         }
 
     return (
@@ -36,7 +40,7 @@ const Signup = () => {
             </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-            Already have an account? Log In
+            Already have an account? <Link to='/login'>Log In</Link>
         </div >
             
         </>

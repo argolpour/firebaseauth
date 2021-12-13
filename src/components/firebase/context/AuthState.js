@@ -2,7 +2,7 @@ import AuthContext from "./AuthContext"
 import { SIGN_UP } from './Types';
 import { useEffect, useReducer } from "react";
 import AuthRecuder from './AuthReducer'
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
 import  {auth} from '../firebase'
 
 
@@ -11,9 +11,13 @@ const AuthState = ({children}) => {
         currentUser:{}
     }
     const [state, dispatch] = useReducer(AuthRecuder, initialState)
-       const login= (email,password)=>{
+       const signUp= (email,password)=>{
          return  createUserWithEmailAndPassword(auth,email,password).then(user=>console.log(user))
      }
+
+     const login= (email,password)=>{
+        return  signInWithEmailAndPassword(auth,email,password).then(user=>console.log(user))
+    }
         
    useEffect(() => {
     
@@ -24,7 +28,7 @@ const AuthState = ({children}) => {
    }, [])
  
         return (
-        <AuthContext.Provider value={{...state,login}}>
+        <AuthContext.Provider value={{...state,signUp,login}}>
             {children}
         </AuthContext.Provider>
     )
